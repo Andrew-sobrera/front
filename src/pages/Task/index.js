@@ -12,23 +12,15 @@ export default function Task(){
     const [taskInput, setTaskInput] = useState('');
     const [submitSuccess, setSubmitSuccess] = useState(false);
 
-    const token = localStorage.getItem('adm_token');
-
     async function handleSubmit(e){
         e.preventDefault();
 
         try {
-            const config = {
-                headers: {
-                  'Authorization': `Bearer ${token}`
-                }
-              };
-
               const taskData = {
                 tarefas: taskInput
             };
 
-            await axios.post(`/tasks`, taskData, config);
+            await axios.post(`/tasks`, taskData);
             setSubmitSuccess(true);
             setTaskInput('');
             toast.success('Tarefa salva com sucesso!');
@@ -40,13 +32,7 @@ export default function Task(){
 
     async function handleDelete(taskId) {
         try {
-            const config = {
-                headers: {
-                  'Authorization': `Bearer ${token}`
-                }
-              };
-
-            await axios.delete(`/tasks/${taskId}`, config);
+            await axios.delete(`/tasks/${taskId}`);
             
             setTasks(tasks.filter(task => task.id !== taskId));
             toast.success('Tarefa excluída com sucesso!');
@@ -57,14 +43,8 @@ export default function Task(){
 
     const handleChecked = async(taskId, isChecked, tarefa) => {
         try {
-            const config = {
-                headers: {
-                  'Authorization': `Bearer ${token}`
-                }
-            };
 
-            // Faz uma requisição PUT para atualizar o estado da tarefa na API
-            await axios.put(`/tasks/${taskId}`, { check: isChecked }, config);
+            await axios.put(`/tasks/${taskId}`, { check: isChecked });
 
             // Atualiza o estado das tarefas
             setTasks(prevTasks =>
@@ -82,14 +62,8 @@ export default function Task(){
     useEffect(() => {
         async function getData(){
             try {
-                const config = {
-                    headers: {
-                      'Authorization': `Bearer ${token}`
-                    }
-                  };
-
-                 const response = await axios.get('/tasks', config)
-               setTasks(response.data)
+                const response = await axios.get('/tasks')
+                setTasks(response.data)
             } catch (error) {
                 console.log('erro');
             }
