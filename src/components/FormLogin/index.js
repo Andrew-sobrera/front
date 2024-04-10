@@ -8,7 +8,7 @@ export default function FormLogin( { onChange } ) {
 
     const handleLogin = (e) => {
         e.preventDefault()
-        onChange(email, password)
+        onChange(email, password, e)
     }
 
     const handleChangeEmail = (e) => {
