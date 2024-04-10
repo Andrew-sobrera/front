@@ -7,21 +7,16 @@ import { Container, Title } from "../../styles/GlobalStyles";
 import { TaskContainer, Text, FormTask, Button, BtnDelete, Buttons } from "./styled";
 import axios from '../../services/axios'
 
-
 export default function Task(){
-    const [tasks, setTasks] = useState([])
+    const [tasks, setTasks] = useState([]);
     const [taskInput, setTaskInput] = useState('');
-    const [submitSuccess, setSubmitSuccess] = useState(false)
-    
-    const token = localStorage.getItem('adm_token')
+    const [submitSuccess, setSubmitSuccess] = useState(false);
+    const [ checked, setCheked ] = useState(false);
 
-    async function handleCheck(taskId){
-        toast.success('Tarefa realizada com sucesso')
-        console.log(taskId)
-    }
+    const token = localStorage.getItem('adm_token');
 
     async function handleSubmit(e){
-        e.preventDefault()
+        e.preventDefault();
 
         try {
             const config = {
@@ -33,14 +28,11 @@ export default function Task(){
               const taskData = {
                 tarefas: taskInput
             };
-    
-            // Passa o corpo da requisição como segundo argumento
+
             await axios.post(`/tasks`, taskData, config);
             setSubmitSuccess(true);
-            setTaskInput('')
-            toast.success('Tarefa salva com sucesso!')
-
-            
+            setTaskInput('');
+            toast.success('Tarefa salva com sucesso!');
         } catch (error) {
             console.log('Erro ao deletar tarefa:', error);
         }
@@ -58,9 +50,33 @@ export default function Task(){
             await axios.delete(`/tasks/${taskId}`, config);
             
             setTasks(tasks.filter(task => task.id !== taskId));
-            toast.success('Tarefa excluída com sucesso!')
+            toast.success('Tarefa excluída com sucesso!');
         } catch (error) {
             console.log('Erro ao deletar tarefa:', error);
+        }
+    }
+
+    const handleChecked = async(taskId, isChecked, tarefa) => {
+        try {
+            const config = {
+                headers: {
+                  'Authorization': `Bearer ${token}`
+                }
+            };
+
+            // Faz uma requisição PUT para atualizar o estado da tarefa na API
+            await axios.put(`/tasks/${taskId}`, { check: isChecked }, config);
+
+            // Atualiza o estado das tarefas
+            setTasks(prevTasks =>
+                prevTasks.map(task =>
+                    task.id === taskId ? { ...task, check: isChecked } : task
+                )
+            );
+
+            toast.success(`Tarefa ${tarefa} realizada`)
+        } catch (error) {
+            console.log('Erro ao atualizar tarefa:', error);
         }
     }
 
@@ -76,15 +92,13 @@ export default function Task(){
                  const response = await axios.get('/tasks', config)
                setTasks(response.data)
             } catch (error) {
-                console.log('erro')
+                console.log('erro');
             }
         }
 
-    getData()
-    setSubmitSuccess(false);
-    },
-    [submitSuccess])
-
+        getData();
+        setSubmitSuccess(false);
+    }, [submitSuccess]);
     return (
         <>
             <Container>
@@ -102,7 +116,11 @@ export default function Task(){
                         <div 
                             key={task.id}>{ task.tarefas }
                             <Buttons>
-                                 <input type="checkbox"  onClick={() => handleCheck(task.id)}  className="check"/>
+                                 <input 
+                                    type="checkbox"
+                                    checked={task.check}
+                                    onChange={(e) => handleChecked(task.id, e.target.checked, task.tarefas)}  
+                                />
                                 <BtnDelete onClick={() => handleDelete(task.id)}><AiFillDelete size={16} /></BtnDelete>
                             </Buttons>
                             
