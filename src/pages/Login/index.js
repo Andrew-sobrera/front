@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 
-import { Container } from "../../styles/GlobalStyles";
+import { Container, Title } from "../../styles/GlobalStyles";
+import FormLogin from "../../components/FormLogin";
 
 
 export default function Login(){
 
+    const handleSubmit = (email, password) => {
+        console.log(email, password)
+    }
+
     return (
         <>
             <Container>
-                <h1>Login</h1>
+                <Title>Login</Title>
+                <FormLogin onChange={handleSubmit}></FormLogin>
             </Container>
         </>
     );

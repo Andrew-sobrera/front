@@ -11,7 +11,6 @@ export default function Task(){
     const [tasks, setTasks] = useState([]);
     const [taskInput, setTaskInput] = useState('');
     const [submitSuccess, setSubmitSuccess] = useState(false);
-    const [ checked, setCheked ] = useState(false);
 
     const token = localStorage.getItem('adm_token');
 

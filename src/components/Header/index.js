@@ -12,16 +12,16 @@ export default function Header() {
                 <Link to="/task">
                     Tarefas
                 </Link>
-                <Link to="/contacts">
+                {/* <Link to="/contacts">
                     Contatos
-                </Link>
+                </Link> */}
             </div>
 
             <div className="icons">
-                <Link to="/">
+                <Link to="/dashboard">
                     <FaHome size={24} />
                 </Link>
-                <Link to="Login">
+                <Link to="/">
                     <FaUserAlt size={24} />
                 </Link>
                 <Link to="/teste">
