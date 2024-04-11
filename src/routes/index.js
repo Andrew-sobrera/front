@@ -12,9 +12,9 @@ export default function Routes(){
     return (
         <Switch>
             <MyRoute exact path="/" component={Login} />
-            <MyRoute exact path="/dashboard" component={Dashboard} />
-            <MyRoute exact path="/task" component={Task} />
-            <MyRoute exact path="/contacts" component={Contact} />
+            <MyRoute exact path="/dashboard" component={Dashboard} isClosed />
+            <MyRoute exact path="/task" component={Task} isClosed />
+            <MyRoute exact path="/contacts" component={Contact} isClosed />
             <MyRoute path="*" component={Page404} />
         </Switch>
     );
