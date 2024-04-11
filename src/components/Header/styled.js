@@ -12,7 +12,7 @@ export const Nav = styled.nav`
     .icons{
         background: ${primaryColor};
         width: 100%;
-        padding: 2%;
+        padding: 20px;
         display: flex;
         align-items: center;
         justify-content: right;
@@ -20,7 +20,7 @@ export const Nav = styled.nav`
 
     .links{
         background: ${primaryColor};
-        padding: 2%;
+        padding: 20px;
         width: 100%;
         display: flex;
         align-items: center;
@@ -33,6 +33,4 @@ export const Nav = styled.nav`
         font-weight: bold;
         text-decoration: none;
     }
-
-    
-`
+` 

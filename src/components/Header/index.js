@@ -6,6 +6,18 @@ import { useSelector } from 'react-redux'
 import { Nav } from './styled'
 
 export default function Header() {
+
+    const isLogged = useSelector(state => state.auth.isLoggedIn)
+
+    if (!isLogged || isLogged === false) {
+        return (
+            <Nav>
+                <div></div>
+            </Nav>
+
+
+        )
+    }
     return (
         <Nav>
 
@@ -20,17 +32,17 @@ export default function Header() {
 
             <div className="icons">
                 <Link to="/dashboard">
-                    <FaHome size={24} />
+                    <FaHome size={23} />
                 </Link>
                 <Link to="/">
-                    <FaUserAlt size={24} />
+                    <FaUserAlt size={23} />
                 </Link>
                 <Link to="/teste">
-                    <FaSignInAlt size={24} />
+                    <FaSignInAlt size={23} />
                 </Link>
-               
+
             </div>
-            
+
         </Nav>
 
     )

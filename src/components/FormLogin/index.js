@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Button, Form, Input, Label, FormGroup } from 'reactstrap';
+import { Button, Input, Label, FormGroup } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+import { FormLoginStyled } from './styled'
 
 export default function FormLogin( { onChange } ) {
     const [email, setEmail] = useState('')
@@ -23,7 +25,7 @@ export default function FormLogin( { onChange } ) {
 
     return (
 
-        <Form>
+        <FormLoginStyled>
             <FormGroup>
                 <Label
                     for="exampleEmail"
@@ -61,6 +63,6 @@ export default function FormLogin( { onChange } ) {
             <Button onClick={(e) => handleLogin(e)}>
                 Logar
             </Button>
-        </Form>
+        </FormLoginStyled>
     )
 }
