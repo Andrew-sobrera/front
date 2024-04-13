@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 
 import MyRoute from './MyRoute'
 import Task from '../pages/Task'
+import User from '../pages/User'
 import Dashboard from '../pages/Dashboard'
 import Login from '../pages/Login'
 import Contact from "../pages/Contact";
@@ -14,6 +15,7 @@ export default function Routes(){
             <MyRoute exact path="/" component={Login} />
             <MyRoute exact path="/dashboard" component={Dashboard} isClosed />
             <MyRoute exact path="/task" component={Task} isClosed />
+            <MyRoute exact path="/user" component={User} isClosed />
             <MyRoute exact path="/contacts" component={Contact} isClosed />
             <MyRoute path="*" component={Page404} />
         </Switch>
