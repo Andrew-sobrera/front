@@ -15,4 +15,8 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
+  define: {
+    // Corrige o erro "crypto.hash is not a function" durante o build
+    'global.crypto': 'undefined'
+  },
 })
