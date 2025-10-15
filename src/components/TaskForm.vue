@@ -49,14 +49,12 @@ const isEditing = computed(() => !!props.editingTask && !!props.editingTask.id);
 
 watch(() => props.editingTask, (newTask) => {
     if (newTask) {
-        // Preenche o formulário para edição
         formData.value = {
             id: newTask.id,
             title: newTask.title,
             description: newTask.description || ''
         };
     } else {
-        // Limpa o formulário quando não está editando
         resetForm();
     }
 }, { immediate: true });
@@ -66,13 +64,10 @@ function resetForm() {
 }
 
 function submitForm() {
-    // Emite a tarefa para o componente pai (App.vue) salvar
     emit('save-task', { ...formData.value });
-    // O App.vue se encarrega de limpar o estado 'editingTask', que por sua vez, limpa o formulário
 }
 
 function cancelEdit() {
-    // Emite null para sinalizar que a edição foi cancelada
     emit('save-task', null);
     resetForm();
 }

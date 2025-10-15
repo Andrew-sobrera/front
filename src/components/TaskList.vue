@@ -31,7 +31,6 @@ const props = defineProps({
 
 defineEmits(['edit-task', 'delete-task', 'toggle-status']);
 
-// Propriedades computadas para filtrar as tarefas
 const pendingTasks = computed(() =>
     props.tasks.filter(t => t.status === 0)
 );

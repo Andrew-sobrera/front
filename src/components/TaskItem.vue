@@ -38,12 +38,11 @@ defineProps({
 defineEmits(['edit', 'delete', 'toggle']);
 
 function formatDate(dateString) {
-    // Garante que a data seja formatada corretamente e trata valores nulos ou vazios
     if (!dateString) return 'Data Indisponível';
     try {
         return new Date(dateString).toLocaleDateString('pt-BR');
     } catch {
-        return dateString; // Retorna a string original se falhar o parse
+        return dateString;
     }
 }
 </script>
