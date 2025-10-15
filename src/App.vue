@@ -4,7 +4,7 @@
     <div class="main-card">
       <h1 class="main-title">Minhas Tarefas</h1>
 
-      <TaskForm :editingTask="editingTask" @save-task="handleSaveTask" class="task-form-wrapper" />
+      <TaskForm ref="taskFormRef" :editingTask="editingTask" @save-task="handleSaveTask" class="task-form-wrapper" />
 
       <TaskList :tasks="tasks" @edit-task="prepareEdit" @delete-task="deleteTask" @toggle-status="toggleTaskStatus" />
 
@@ -28,6 +28,7 @@ const tasks = ref([]);
 const editingTask = ref(null);
 const isLoading = ref(false);
 const error = ref(null);
+const taskFormRef = ref(null);
 
 const API_BASE_URL = 'http://localhost:8000/api/tasks';
 
@@ -72,6 +73,10 @@ async function handleSaveTask(taskData) {
 
     await fetchTasks();
     editingTask.value = null;
+
+    if (taskFormRef.value) {
+      taskFormRef.value.resetForm();
+    }
 
   } catch (err) {
     error.value = err.message || 'Erro ao salvar a tarefa.';

@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import { ref, watch, computed, defineProps, defineEmits } from 'vue';
+import { ref, watch, computed, defineProps, defineEmits, defineExpose } from 'vue';
 
 const props = defineProps({
     editingTask: {
@@ -54,8 +54,6 @@ watch(() => props.editingTask, (newTask) => {
             title: newTask.title,
             description: newTask.description || ''
         };
-    } else {
-        resetForm();
     }
 }, { immediate: true });
 
@@ -71,6 +69,10 @@ function cancelEdit() {
     emit('save-task', null);
     resetForm();
 }
+
+defineExpose({
+    resetForm
+});
 </script>
 
 <style scoped>
